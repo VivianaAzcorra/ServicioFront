@@ -1,0 +1,146 @@
+<h1>Bienvenido {{ usuario }}</h1>
+
+<div *ngIf="flag" class="col-12" style="align-items: right">
+  <button class="addbtn btn w-30" style="background: #495057"   (click)="open(content1)">Crear una cuenta</button>
+</div>
+<div class="col-12" style="align-items: right">
+  <button class="addbtn btn w-30" (click)="open(content)">Crear Asignatura</button>
+</div>
+<br />
+
+<div class="col-12">
+  <hr />
+  <h2>Tus materias</h2>
+  <hr />
+</div>
+<div class="col-12">
+  
+  <div *ngFor="let materias of materias">
+    <div class="card">
+      <div class="card-body">
+        <a (click)="link(materias.idAsignatura)">{{ materias.nombreAsignatura }}</a>
+        <div>
+          <button class="addbtn btn w-30" type="submit" (click)="open1(editar, materias)">
+            Editar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+<!--Contenido de la modal para crear una materia-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-crear">Crear la materia</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <!--El form guarda la información para crear una materia
+  se crear el formGroup para relacionarlo con el formBuilder en el typescrip
+  El formControlName es para el identificardor dentro del form
+  para ver los datos se tiene actualmente se ve en la consola del navegador-->
+  <form class="mb-3" [formGroup]="materia" (ngSubmit)="guardar()">
+    <div class="modal-body">
+      <label for="contenido">Introduzca los datos</label>
+      <input type="text" placeholder="nombre de la materia" formControlName="nombreAsignatura"/>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Guardar</button>
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #editar let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-edita">Edición de materia</h4>
+
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+<!--El form actualiza la información para crear una materia
+  se crear el formGroup para relacionarlo con el formBuilder en el typescrip
+  El formControlName es para el identificardor dentro del form
+  para ver los datos se tiene actualmente se ve en la consola del navegador-->
+  <form class="mb-3" [formGroup]="materia" (ngSubmit)="actualizar()">
+    <div class="modal-body">
+      <label for="contenido">Introduzca los datos</label>
+      <input type="text" value="materiaActual.nombreAsignatura" [(ngModel)]="materiaActual.nombreAsignatura" formControlName="nombreAsignatura"/>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Guardar</button>
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</ng-template>
+<!--Contenido de la modal para crear una materia-->
+<div>
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Crear cuenta para profesor</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  
+  <!--El form guarda la información para crear una materia
+  se crear el formGroup para relacionarlo con el formBuilder en el typescrip
+  El formControlName es para el identificardor dentro del form
+  para ver los datos se tiene actualmente se ve en la consola del navegador-->
+  <form class="mb-3" [formGroup]="profesor" (ngSubmit)="guardarProf()">
+    <div class="modal-body">
+      <label for="contenido">Introduzca los datos para la cuenta a crear</label><br>
+      Correo: <input type="text" placeholder="Correo del profesor" formControlName="correo"/><br>
+      Nombre: <input type="text" placeholder="Nombre" formControlName="nombre"/><br>
+      Apellido paterno: <input type="text" placeholder="Apellido paterno" formControlName="apellidoPaterno"/><br>
+      Apellido materno: <input type="text" placeholder="Apellido materno" formControlName="apellidoMaterno"/><br>
+      Contraseña: <input type="text" placeholder="Contraseña" formControlName="contrasenia"/><br>
+      ¿El usuario es administrador? <input type="checkbox" placeholder="Administrador" formControlName="superuser"/>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Guardar</button>
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+
+</div>
+
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

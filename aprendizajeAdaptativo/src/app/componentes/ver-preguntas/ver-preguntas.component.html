@@ -1,0 +1,135 @@
+<div class="container col-12">
+  <div class="form-group row d-flex justify-content-center">
+    <div class="col-6">
+      <select name="unidad" class="form-control" (change)="cambiarUnidad($event)">
+        <option>--Seleccione Unidad--</option>
+        <option *ngFor="let unidad of unidad">{{ unidad.nombreUnidad }}</option>
+      </select>
+    </div>
+
+    <select type="text" name="tema" id="tema" class="form-control col-6" (change)="cambiarTema($event)">
+      <option>--Seleccione un Tema--</option>
+      <option *ngFor="let tema of temas">{{ tema.nombreTema }}</option>
+    </select>
+    <br />
+    <br />
+
+    <div class="container col-12">
+      <div class="centrar">
+        <button class="btn btn-warning" type="submit" (click)="linkCrearPreguntas(idAsignatura)">Agregar pregunta
+        </button>
+      </div>
+    </div>
+
+    <!--se hace un for para el cambio del preguntas por los select-->
+    <div class="container" *ngFor="let pregunta of preguntas">
+      <div class="col-12 card">
+        <div class="card-body">
+          <!--Contenido de la pregunta-->
+          <div class="fondo">
+            <label class="pregunta" for="">
+              {{ pregunta.pregunta }}
+            </label>
+          </div>
+
+          <!--Seccion de respuestas-->
+          <div *ngFor="let respuesta of pregunta.listOfRespuestas, index as i">
+              <label>{{ respuesta.respuesta }}</label>
+              <input class="check-box" type="radio" disabled [checked]="i == pregunta.correcto" />
+          </div>
+
+          <div class="fondo col-12" style="float: right;">
+
+            <!--Boton para editar una pregunta, abre un modal para hacerlo-->
+            <div class="col-12" style="float: right;">
+              <button class="btn btn-warning col-2" (click)="open(content)" style="float: right;" >
+                Editar
+              </button>
+              <!--Parte que pregunta si la pregunta requiere procedimiento-->
+              <label class="pregunta" style="margin: 3px;">Requiere procedimiento</label>
+              <input class="check-box" type="radio" disabled [checked]="pregunta.requiereProcedimiento" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Modal para editar una pregunta-->
+        <!--se puede cambiar a un form, pero creo que funcionan igual
+        los ng.Model es para los datos del objeto que se esta generando, 
+        en este caso para el array 'pregunta'-->
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">
+            Edición de pregunta
+          </h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <form class="mb-3">
+          <div class="modal-body">
+
+            <label for="contenido">Contenido</label>
+            <div class="input-group">
+              <!--Parte para el contenido de la pregunta-->
+              <div class="col-12">
+                <input type="text" id="pregunta" [(ngModel)]="pregunta.pregunta" class="form-control" value="pregunta.pregunta" name="pregunta" />
+              </div>
+              
+              <!--Parte de la dificultad de la pregunta-->
+              <div class="cont input-group-text form-check" >
+                <div>
+                  <label class="check-label">3</label>
+                  <input class="check-box" name="dificultad" type="radio" [value]="3" [(ngModel)]="pregunta.dificultad"
+                     />
+                </div>
+                <div>
+                  <label class="check-label">2</label>
+                  <input class="check-box" name="dificultad" type="radio" [value]="2" [(ngModel)]="pregunta.dificultad"
+                     />
+                </div>
+                <div>
+                  <label class="check-label">1</label>
+                  <input class="check-box" name="dificultad" type="radio" [value]="1" [(ngModel)]="pregunta.dificultad"
+                     />
+                </div>
+              </div>
+
+              <!--Parte para confirmar si la pregunta requiere procedimiento-->
+              <div class="form-check">
+                <label class="form-check-label" for="procedimiento">
+                  Requiere procedimiento
+                </label>
+                <input class="form-check-input" name="requiereProcedimiento" type="checkbox" value=""
+                  [(ngModel)]="pregunta.requiereProcedimiento">
+
+              </div>
+            </div>
+              <!--Parte de la respuesta
+              En esta parte hay un detalle, el contenido de la respuesta solo deja actualizar letra por letra,
+            creo que es porque se actualiza una parte de for pero no se como moverle xd-->
+              <div *ngFor="let respuesta of pregunta.listOfRespuestas, index as i">
+                <!--
+                  puede que te mal
+                  Nota* NUNCA DEJAR ESCRIBIR [(ngModel)]="respuesta" MIESTRAS SE EJECUTA QUE CRASHEA Y SE TIENE QUE VOLVER A CORRER
+                -->
+                <input type="text" class="form-control" id="respuesta" name="{{i}}" value="respuesta.respuesta" [(ngModel)]="respuesta.respuesta">
+                <input class="check-box" type="radio" name="respuesta" [value]="i" [(ngModel)]="pregunta.correcto" />
+            </div>
+            
+          </div>
+          
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-dark" (click)="save(pregunta)">
+              Guardar
+            </button>
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+              Cancelar
+            </button>
+          </div>
+
+
+        </form>
+        
+      </ng-template>
+    </div>
+  </div>
+</div>

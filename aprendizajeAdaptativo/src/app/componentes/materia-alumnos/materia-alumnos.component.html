@@ -1,0 +1,39 @@
+<h1>{{ nombreMateria }}</h1>
+
+<div class="col-12">
+    <hr>
+    <h2>Exámenes disponibles</h2>
+    <hr>
+</div>
+<div class="col-12">
+    <div *ngFor="let examen of examenes">
+        <div class="card">
+            <div class="card-body">
+                <strong style="color: #2D2558;">{{examen.nombre}}</strong>
+                <div>
+                    Disponible hasta: {{examen.disponible}} &nbsp;&nbsp;&nbsp;&nbsp;Duración máxima: {{examen.duracion}}
+                    <button class="addbtn btn w-30" type="submit" routerLink="/materia-alumnos">Iniciar examen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <hr>
+    <h2>Exámenes presentados</h2>
+    <hr>
+</div>
+<div class="col-12">
+    <div *ngFor="let examen of examenespresentados">
+        <div class="card">
+            <div class="card-body">
+                <strong style="color: #2D2558;">{{examen.nombre}}</strong>
+                <div>
+                    Presentado el: {{examen.presentado}} &nbsp;&nbsp;&nbsp;&nbsp;Calificación: {{examen.calificacion}}
+                    <button class="addbtn btn w-30" type="submit" routerLink="/materia-alumnos">Ver resultados</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

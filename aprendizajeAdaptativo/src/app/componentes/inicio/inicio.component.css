@@ -1,0 +1,11 @@
+.addbtn {
+    margin: 2px;
+    color: white;
+    text-align: center;
+    background: #2D2558;
+    border-radius: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    float: right;
+}

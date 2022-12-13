@@ -1,0 +1,127 @@
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    padding: 0px;
+    height: 0px;
+}
+
+th,
+td,
+tfoot {
+    padding: 20px;
+}
+
+th {
+    letter-spacing: 2px;
+    background-color: #2D2558;
+    color: #ffffff;
+    text-align: center;
+}
+
+td {
+    letter-spacing: 1px;
+    color: #495057;
+}
+
+tr:nth-child(2n-1) {
+    background-color: #DCD6FF;
+}
+
+tr:nth-child(2n) {
+    background-color: #ffffff;
+}
+
+tfoot td {
+    background-color: #DEE2E6;
+    color: #495057;
+    text-align: center;
+    padding: 10px;
+    border-radius: 0px 0px 7px 7px;
+}
+
+th:nth-child(1) {
+    width: 65%;
+}
+
+th:nth-child(2) {
+    width: 15%;
+}
+
+th:nth-child(3) {
+    width: 20%;
+}
+
+.boton-agregar {
+    width: 205px;
+    height: 30px;
+    background: #2D2558;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 5px;
+    margin-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    border: 0px;
+}
+
+#boxtema {
+    height: 69px;
+    background: #DEE2E6;
+    border-radius: 7px 7px 0px 0px;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+
+    color: #2D2558;
+}
+
+.box {
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border: 1px solid #CED4DA;
+    border-radius: 7px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+.ver{
+    height: 30px;
+    background: #C68D2A;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 5px;
+    margin-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    border: 0px;
+}
+.eliminar{
+    height: 30px;
+    background: #D93025;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 5px;
+    margin-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    border: 0px;
+}

@@ -1,0 +1,27 @@
+.addbtn {
+    margin: 2px;
+    color: white;
+    text-align: center;
+    background: #2D2558;
+    border-radius: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    float: right;
+}
+
+.asignatura{
+    height: 100px;
+    background-color: #C68D2A;
+    border-radius: 7px;
+    font-size: 24px;
+    line-height: 18px;
+    padding: 5px;
+    margin-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    border: 0px;
+}

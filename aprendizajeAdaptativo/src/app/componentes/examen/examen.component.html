@@ -1,0 +1,185 @@
+<!--
+    l -> unidad
+    tema -> k
+    reactivo -> i
+    respuesta -> j
+    row
+-->
+
+<div class="container col-11">
+  <form class="row justify-content-center" [formGroup]="examen">
+  <div class="form-group row d-flex justify-content-center col-12" id="tituloexamen">
+    <div class="col-9">
+      <input type="text" name="nombre" [attr.id]="'nombre'" formControlName="nombre" placeholder="Nombre del examen" class="form-control" />
+    </div>
+
+    <input type="number" name="tiempo" [attr.id]="'tiempo'" formControlName="tiempo" placeholder="Duración (Minutos)" class="form-control col-2" />
+  </div>
+  
+    <!--seccion de unidad-->
+    <div class="unidad col-md-12" formArrayName="unidades" *ngFor="let unidad of getUnidad(examen); let l = index">
+      <div class="row justify-content-center" [formGroupName]="l" >
+
+        <div class="container">
+          <div class="row form-group" id="titulounidad">
+            <p class="col">Unidad {{ l + 1}} {{unidad.controls['contenido'].value}}</p>
+
+            <!--boton para eliminar una Unidad-->
+            <div class="justify-content-end">
+              <div class="input-group-prepend text-center">
+                <button *ngIf="getUnidad(examen).length > 1" class="btn btn-danger" type="button"
+                  (click)="eliminarUnidad(l, unidad)">
+                  Eliminar Unidad
+                </button>
+              </div>
+            </div>
+
+            <div class="col-12">
+              
+              <select name="unidadesList" id="{{l}}" (change)="cambiarUnidad($event, unidad)" class="form-control">
+                <option value="" selected>--Seleccione Unidad--</option>
+                <option *ngFor="let unidades of unidades" [value]="unidades.nombreUnidad">
+                  {{unidades.nombreUnidad}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!--Seccion de tema-->
+          <div class="container">
+            <div class="temas col-12" formArrayName="temas" *ngFor="let tema of getTema(unidad); let k = index">
+              <div class="row justify-content-center" [formGroupName]="k">
+
+                <div class="col-12">
+                  <div class="justify-content-center">
+                    <div class="form-group row" id="titulotema">
+                      <p class="col">Tema {{ k + 1 }} {{tema.controls['contenido'].value}}</p>
+
+                      <!--boton para eliminar un Tema-->
+                      <div class="justify-content-end">
+                        <div class="input-group-prepend text-center">
+                          <button *ngIf="getTema(unidad).length > 1" class="btn btn-danger" type="button"
+                            (click)="eliminarTema(l, k, tema)">
+                            Eliminar Tema
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <select name="tema" id="{{k}}" class="form-control col-12" (change)="cambiarTema($event, tema)">
+                          <option value="" selected>--Seleccione un Tema--</option>
+                          <option *ngFor="let tema of temas" [value]="tema.nombreTema">
+                            {{ tema.nombreTema }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!--seccion de reactivos-->
+                    <div class="conatiner">
+                      <div class="reactivo col-md-12" formArrayName="reactivos"
+                        *ngFor="let reactivo of getReactivo(tema); let i = index">
+                        <div class="row justify-content-center" [formGroupName]="i">
+
+                          <div class="col-12">
+                            <div class="form-group row" id="titulotema">
+                              <p class="col">Pregunta {{ i + 1 }} {{reactivo.controls['contenido'].value}}</p>
+
+                              <!--boton para eliminar un reactivo-->
+                              <div class="justify-content-end">
+                                <div class="input-group-prepend text-center">
+                                  <button *ngIf="getReactivo(tema).length > 1" class="btn btn-danger" type="button"
+                                    (click)="eliminarReactivo(l, k, i, reactivo)">
+                                    Eliminar Reactivo
+                                  </button>
+                                </div>
+                              </div>
+
+                              <div class="col-md-12">
+                                  <select name="pregunta" class="form-control" (change)="cambiarPregunta($event, reactivo)">
+                                    <option>--Seleccione una pregunta--</option>
+                                    <option *ngFor="let pregunta of preguntas">{{pregunta.pregunta}}</option>
+                                  </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!--esta es la seccion de las respuestas, se deberián generar 4 respuestas-->
+                          <div class="respuesta col-11" formArrayName="respuestas" *ngFor="
+                            let respuesta of getRespuesta(reactivo); let j = index">
+                            <div [formGroupName]="j">
+                              <div class="input-group form-group  justify-content-center" >
+                                <div class="col-8">
+                                  <input type="text" name="{{ j }}" id="{{ j }}" class="form-control"
+                                    value="{{respuesta.controls['contenido'].value}}" disabled/>
+                                </div>
+                                <div class="input-group-text form-check">
+                                  <input name="{{i}} {{k}} {{l}}" id="{{i}} {{k}} {{l}}" type="radio" [checked]="j==reactivo.controls['correcto'].value" 
+                                   disabled />
+                                </div>
+
+                                
+                                <select class="col-3 form-control" name="preguntaSiguiente" id="{{i}} {{k}} {{l}} {{ j }}" (change)="cambiarPreSig($event, respuesta)">
+                                  <option *ngIf="reactivo.preguntaSiguiente!='1'" [value]="reactivo.preguntaSiguiente">{{reactivo.preguntaSiguiente}}</option>
+                                  <option value="">Ninguna</option>
+                                  <option *ngFor="
+                                      let item of preguntaSiguiente;
+                                      let z = index
+                                        " value="{{ item.idreactivo }}">
+                                    {{ item.pregunta }}
+                                  </option>
+                                </select>
+                            
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container col-12 parabotones justify-content-center">
+                        <div class="col-8 input-group-prepend justify-content-center">
+                          <!--<button class="addbtn btn w-70" type="button" style="background: #495057;" (click)="agregarReactivo(l, k)">
+                            Ajustes Adicionales
+                          </button>-->
+                          <p>&nbsp;&nbsp;&nbsp;</p>
+                          <button class="addbtn btn w-70" type="button" (click)="agregarReactivo(l, k)">
+                            Agregar Reactivo
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+
+              </div>
+            </div>
+            <div class="container col-12 parabotones justify-content-center">
+              <div class="col-6 input-group-prepend justify-content-center">
+                <button class="addbtn btn w-70" type="button" (click)="agregarTema(l)">
+                  Agregar Tema
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+    <div class="container col-12 parabotones justify-content-center">
+      <div class="col-8 input-group-prepend justify-content-center">
+        <button class="addbtn btn w-70" type="button" (click)="agregarUnidad()">
+          Agregar Unidad
+        </button>
+      </div>
+    </div>
+  </form>
+  <button class="addbtn btn" (click)="mandar()">
+    Guardar Cambios
+  </button>
+</div>

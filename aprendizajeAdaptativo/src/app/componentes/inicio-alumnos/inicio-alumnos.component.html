@@ -1,0 +1,41 @@
+<h1>Bienvenido {{ usuario }}</h1>
+
+<div class="col-12">
+    <hr />
+    <h2>Tus materias</h2>
+    <hr />
+</div>
+<div class="col-12">
+    <div *ngFor="let materias of materias">
+        <div class="card">
+            <div class="card-body">
+                <a href="/materia-alumnos">{{ materias.nombre }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <hr />
+    <h2>Agregar nuevas asignaturas</h2>
+    <hr />
+</div>
+
+<div class="col-12" style="align-items: right">
+    Buscar asignaturas:
+    <input [(ngModel)]='codigoAsignatura' class="col-8" type="text">
+    <button class="addbtn btn w-30" (click)="buscar()">Buscar</button>
+    <hr>
+    <div *ngFor="let materiasencontradas of materiasencontradas">
+        <div class="card">
+            <div class="card-body">
+                {{ materiasencontradas.nombre }}
+                <button class="addbtn btn w-30" (click)="agregarmateria()">Agregar a mis materias</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

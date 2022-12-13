@@ -1,0 +1,130 @@
+<div class="container col-12">
+    <div class="col-6" style="float: left;">
+        <table>
+            <thead>
+                <th></th>
+                <th></th>
+                <th></th>
+            </thead>
+            <tr>
+                <th colspan="3">Unidades</th>
+            </tr>
+            <tr *ngFor="let unidad of unidades">
+                <td>{{unidad.nombreUnidad}}</td>
+                 
+                <td><button class="editar" (click)="openUnidad(unidadCont, unidad.idUnidades)">Editar</button></td>
+                <td><button class="ver" (click)="seleccionarUnidad(unidad.idUnidades)">Temas</button></td>
+            </tr>
+            <tfoot>
+                <td colspan="3">
+                    <input [(ngModel)]='nuevaunidad' type="text" name="nueva-unidad"
+                        placeholder="Ingrese el nombre de la nueva unidad" class="form-control" />
+                    <button class="boton-agregar" (click)="agregarUnidad()">Agregar unidad</button>
+                </td>
+            </tfoot>
+        </table>
+    </div>
+    <div class="container col-6" style="float: right;">
+        <div class="box">
+            <p class="justify-content-center" id="boxtema">Unidad: <br> {{unidadselect}}</p>
+            <div class="justify-content-center" style="margin: 15px;">
+                <table>
+                    <thead>
+                        <th style="width: 58%;"></th>
+                        <th style="width: 15%;"></th>
+                        <th style="width: 27%;"></th>
+                    </thead>
+                    <tr>
+                        <th colspan="3">Temas</th>
+                    
+                    </tr>
+                        <tr *ngFor="let tema of filtrarTemas()">
+                        <td>{{tema.nombreTema}}</td>
+                        <td><button class="editar" (click)="openTema(temaCont, tema.idTema)">Editar</button></td>
+                        <td><button class="ver"  type="submit" (click)="linkVerPreguntas(idAsignatura)">Preguntas</button></td>
+                    </tr>
+                
+                    <tfoot>
+                        <td colspan="3">
+                            <div class="formNuevoTema">
+                                <div class="col-md-12">
+                                    <input [(ngModel)]='nuevotema' type="text" name="nuevo-tema"
+                                        placeholder="Ingrese el nombre del nuevo tema" class="form-control" />
+                                    <button class="boton-agregar" (click)="agregarTema()">Agregar tema</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template #unidadCont let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-unidad">Edición de Unidad</h4>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          ></button>
+        </div>
+        <!--El form actualiza la información para una unidad
+        se crear el formGroup para relacionarlo con el formBuilder en el typescrip
+        El formControlName es para el identificardor dentro del form
+        para ver los datos se tiene actualmente se ve en la consola del navegador-->
+        <form class="mb-3" (ngSubmit)="editarUnidad()">
+          <div class="modal-body">
+            <label for="contenido">Introduzca los datos</label>
+            <input type="text" [(ngModel)]='nombreunidad' name="nombre-unidad" />
+          </div>
+      
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-dark">Guardar</button>
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="modal.close('Save click')"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </ng-template>
+
+      <ng-template #temaCont let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-tema">Edición de Tema</h4>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          ></button>
+        </div>
+        <!--El form actualiza la información para una unidad
+        se crear el formGroup para relacionarlo con el formBuilder en el typescrip
+        El formControlName es para el identificardor dentro del form
+        para ver los datos se tiene actualmente se ve en la consola del navegador-->
+        <form class="mb-3" (ngSubmit)="editarTema()">
+          <div class="modal-body">
+            <label for="contenido">Introduzca los datos</label>
+            <input type="text" [(ngModel)]='nombretema' name="nombre-tema"/>
+          </div>
+      
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-dark">Guardar</button>
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="modal.close('Save click')"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </ng-template>
+
+</div>

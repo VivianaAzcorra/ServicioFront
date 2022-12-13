@@ -1,0 +1,71 @@
+.reactivo {
+    border-color: black;
+    box-sizing: border-box;
+
+    background: #FFFFFF;
+    border: 1px solid #DEE2E6;
+    border-radius: 7px 7px 0px 0px;
+    margin-top: 10px;
+}
+
+.respuesta {
+    background-color: white;
+    padding-top: 0px;
+}
+
+.addbtn {
+    margin: 10px;
+    color: white;
+    text-align: center;
+    background: #2D2558;
+    border-radius: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.parabotones {
+    background: #DEE2E6;
+    border-radius: 0px 0px 7px 7px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+
+
+.btn-danger{
+    box-sizing: border-box;
+    margin-top: 10px;
+    background: #D93025;
+    border-radius: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    width: 70;
+    margin-right: 15px;
+}  
+
+.pregunta{
+    background-color: #2D2558;
+    margin-bottom: 15px;
+    border-radius: 7px 7px 0px 0px;
+    font-size: 17px;
+    color: #FFFFFF;
+}
+
+
+.cont{
+    background-color: #2D2558;
+    border: #2D2558;
+    color: white;
+}
+
+.check-label {
+    display: table-row;
+}
+
+.check-box {
+    margin-right: 15px;
+}
